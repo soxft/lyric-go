@@ -7,14 +7,15 @@ import (
 	"lyric/tool"
 	"net/http"
 	"net/url"
+	"os"
 	"path/filepath"
 	"strings"
 )
 
 func (Lyric *lyric) GetIds(file FileStruct) {
 	name := strings.Replace(file.Name, filepath.Ext(file.Name), "", -1)
-	if tool.FileExists(file.Path + "/" + name + ".lrc") {
-		log.Println(file.Name, " > alreasy exists")
+	if tool.FileExists(file.Path + string(os.PathSeparator) + name + ".lrc") {
+		log.Println(file.Name, " > already exists")
 		return
 	}
 	postData := url.Values{}

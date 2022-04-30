@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 )
 
@@ -23,7 +24,7 @@ func (Lyric *lyric) GetLyrics(file IdStruct) {
 		log.Println(file.Name, " > failed")
 		return
 	}
-	if !Lyric.WriteLyric(file.Path+"/"+file.Name+".lrc", lyrics) {
+	if !Lyric.WriteLyric(file.Path+string(os.PathSeparator)+file.Name+".lrc", lyrics) {
 		Lyric.Fail = append(Lyric.Fail, file.Name)
 		log.Println(file.Name, " > write file failed")
 		return

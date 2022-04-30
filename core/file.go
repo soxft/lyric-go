@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"lyric/tool"
+	"os"
 	"path/filepath"
 )
 
@@ -11,7 +12,7 @@ func (Lyric *lyric) GetLyricList(path string) {
 	if files, err := ioutil.ReadDir(path); err == nil {
 		for _, file := range files {
 			if file.IsDir() {
-				Lyric.GetLyricList(path + "/" + file.Name())
+				Lyric.GetLyricList(path + string(os.PathSeparator) + file.Name())
 			} else {
 				fileExt := filepath.Ext(file.Name())
 				if tool.IsAudio(fileExt) {
