@@ -52,6 +52,10 @@ func getId(response *http.Response, err error) int {
 	if int(result["code"].(float64)) != 200 {
 		return -1
 	}
+	log.Println(result)
+	if result["result"].(map[string]interface{})["songs"] == nil {
+		return -1
+	}
 	songId := result["result"].(map[string]interface{})["songs"].([]interface{})[0].(map[string]interface{})["id"].(float64)
 	return int(songId)
 }
