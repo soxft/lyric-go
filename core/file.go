@@ -19,7 +19,7 @@ func (Lyric *lyric) GetLyricList(path string) {
 					Lyric.Count[fileExt]++
 					Lyric.List = append(Lyric.List, FileStruct{
 						Name: file.Name(),
-						Path: path + "/" + file.Name(),
+						Path: path,
 						Ext:  fileExt,
 					})
 				}

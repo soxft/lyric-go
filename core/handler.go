@@ -26,5 +26,23 @@ func HandlerDir(path string) {
 	for _, file := range lyricer.List {
 		lyricer.GetIds(file)
 	}
-
+	if len(lyricer.Ids) > 0 {
+		log.Print("-------- start get lyrics --------")
+		for _, id := range lyricer.Ids {
+			lyricer.GetLyrics(id)
+		}
+	}
+	log.Print("----------- status -----------")
+	_failedNum := len(lyricer.Fail)
+	_successNum := _length - _failedNum
+	log.Printf("Total: %d", _length)
+	log.Printf("Success: %d", _successNum)
+	log.Printf("Failed: %d", _failedNum)
+	if _failedNum > 0 {
+		log.Print("--------- failed list ---------")
+		for _, v := range lyricer.Fail {
+			log.Printf("%s", v)
+		}
+	}
+	log.Print("---------- complete ----------")
 }

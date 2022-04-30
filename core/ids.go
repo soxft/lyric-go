@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"log"
+	"lyric/tool"
 	"net/http"
 	"net/url"
 	"path/filepath"
@@ -12,28 +13,37 @@ import (
 
 func (Lyric *lyric) GetIds(file FileStruct) {
 	name := strings.Replace(file.Name, filepath.Ext(file.Name), "", -1)
+	if tool.FileExists(file.Path + "/" + name + ".lrc") {
+		log.Println(file.Name, " > alreasy exists")
+		return
+	}
 	postData := url.Values{}
 	postData.Add("s", name)
 	postData.Add("limit", "1")
 	postData.Add("type", "1")
 	postData.Add("offset", "0")
 	data, err := http.PostForm("https://music.163.com/api/search/get/", postData)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	songId := getId(data)
+	songId := getId(data, err)
 	if songId == -1 {
 		Lyric.Fail = append(Lyric.Fail, file.Name)
+		log.Println(file.Name, " > failed")
+		return
 	}
-	Lyric.Ids[file.Name] = songId
+	Lyric.Ids = append(Lyric.Ids, IdStruct{
+		Name: name,
+		Id:   songId,
+		Path: file.Path,
+	})
 	log.Println(file.Name, " > ", songId)
 }
 
-func getId(response *http.Response) int {
+func getId(response *http.Response, err error) int {
 	defer func(Body io.ReadCloser) {
 		_ = Body.Close()
 	}(response.Body)
+	if err != nil {
+		return -1
+	}
 	var result map[string]interface{}
 	if err := json.NewDecoder(response.Body).Decode(&result); err != nil {
 		return -1
