@@ -2,6 +2,6 @@ package core
 
 import "log"
 
-func (Lyricer lyric) GetLyric(file FileStruct) {
+func (Lyric *lyric) GetLyric(file FileStruct) {
 	log.Println(file.FileName)
 }
