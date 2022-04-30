@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	"log"
 	"lyric/tool"
 )
@@ -20,7 +19,7 @@ func HandlerDir(path string) {
 
 	log.Printf("--------- %d file found--------", _length)
 	for _, v := range tool.Exts {
-		fmt.Printf("%s > %d \n", v, lyricer.Count[v])
+		log.Printf("%s > %d \n", v, lyricer.Count[v])
 	}
 	log.Print("-------- start get music id --------")
 	for _, file := range lyricer.List {
