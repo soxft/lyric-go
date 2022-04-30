@@ -1,9 +1,9 @@
 package core
 
 type FileStruct struct {
-	FileName string
-	FilePath string
-	FileExt  string
+	Name string
+	Path string
+	Ext  string
 }
 
 type Lyricer interface {
@@ -17,4 +17,5 @@ type lyric struct {
 	List  []FileStruct
 	Count map[string]int
 	Ids   map[string]int
+	Fail  []string
 }
