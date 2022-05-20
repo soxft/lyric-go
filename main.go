@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"log"
-	"lyric/core"
+	"lyric/handler"
 	"os"
 )
 
@@ -20,12 +20,14 @@ func main() {
 
 	// no dir specified
 	if dir == "" {
-		log.Fatal("no dir specified")
+		log.Print("no dir specified")
+		return
 	}
 	// check if dir exists
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		log.Fatal("dir does not exist")
+		return
 	}
 
-	core.HandlerDir(dir)
+	handler.Dir(dir)
 }

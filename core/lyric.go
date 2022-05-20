@@ -10,6 +10,10 @@ import (
 	"strconv"
 )
 
+func New() *lyric {
+	return &lyric{}
+}
+
 func (Lyric *lyric) GetLyrics(file IdStruct) {
 	getData := url.Values{}
 	getData.Set("os", "pc")

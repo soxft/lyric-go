@@ -1,14 +1,15 @@
-package core
+package handler
 
 import (
 	"log"
+	"lyric/core"
 	"lyric/tool"
 )
 
-func HandlerDir(path string) {
+func Dir(path string) {
 	// 遍历文件夹下文件 以及路径
 	log.Printf("-- start searching in: %s --", path)
-	lyricer := new(lyric)
+	lyricer := core.New()
 	lyricer.InitData()
 
 	lyricer.GetLyricList(path)
