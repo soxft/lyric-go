@@ -43,6 +43,7 @@ func getLyric(response *http.Response, err error) string {
 	if err != nil {
 		return ""
 	}
+	
 	var result map[string]interface{}
 	err = json.NewDecoder(response.Body).Decode(&result)
 	if err != nil {

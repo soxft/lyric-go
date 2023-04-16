@@ -1,7 +1,6 @@
 package core
 
 import (
-	"io/ioutil"
 	"log"
 	"lyric/tool"
 	"os"
@@ -9,7 +8,7 @@ import (
 )
 
 func (Lyric *lyric) GetLyricList(path string) {
-	if files, err := ioutil.ReadDir(path); err == nil {
+	if files, err := os.ReadDir(path); err == nil {
 		for _, file := range files {
 			if file.IsDir() {
 				Lyric.GetLyricList(path + string(os.PathSeparator) + file.Name())

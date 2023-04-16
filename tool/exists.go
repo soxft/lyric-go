@@ -1,8 +1,16 @@
 package tool
 
-import "os"
+import (
+	"os"
+)
 
 func FileExists(path string) bool {
-	_, err := os.Lstat(path)
+	f, err := os.Lstat(path)
+
+	// check if empty file
+	if f.Size() == 0 {
+		_ = os.Remove(path)
+		return false
+	}
 	return !os.IsNotExist(err)
 }
